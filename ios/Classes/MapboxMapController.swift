@@ -354,7 +354,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
 
-            removeLayer(layerId: layerId)
             let addResult = addSymbolLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -383,7 +382,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
 
-            removeLayer(layerId: layerId)
             let addResult = addLineLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -412,7 +410,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
 
-            removeLayer(layerId: layerId)
             let addResult = addFillLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -441,7 +438,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
 
-            removeLayer(layerId: layerId)
             let addResult = addFillExtrusionLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -470,7 +466,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
 
-            removeLayer(layerId: layerId)
             let addResult = addCircleLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -495,8 +490,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let belowLayerId = arguments["belowLayerId"] as? String
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
-
-            removeLayer(layerId: layerId)
             addHillshadeLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -515,8 +508,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let belowLayerId = arguments["belowLayerId"] as? String
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
-
-            removeLayer(layerId: layerId)
             addHeatmapLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -739,7 +730,12 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
         case "style#removeLayer":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let layerId = arguments["layerId"] as? String else { return }
-            removeLayer(layerId: layerId)
+            guard let layer = mapView.style?.layer(withIdentifier: layerId) else {
+                result(nil)
+                return
+            }
+            interactiveFeatureLayerIds.remove(layerId)
+            mapView.style?.removeLayer(layer)
             result(nil)
 
         case "style#setFilter":
@@ -898,13 +894,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             }
         default:
             result(FlutterMethodNotImplemented)
-        }
-    }
-
-    private func removeLayer(layerId: String) {
-        if let layer = mapView.style?.layer(withIdentifier: layerId) {
-            mapView.style?.removeLayer(layer)
-            interactiveFeatureLayerIds.remove(layerId)
         }
     }
 

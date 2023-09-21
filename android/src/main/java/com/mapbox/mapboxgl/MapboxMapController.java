@@ -912,7 +912,6 @@ final class MapboxMapController
 
           Expression filterExpression = parseFilter(filter);
 
-          removeLayer(layerId);
           addSymbolLayer(
               layerId,
               sourceId,
@@ -943,7 +942,6 @@ final class MapboxMapController
 
           Expression filterExpression = parseFilter(filter);
 
-          removeLayer(layerId);
           addLineLayer(
               layerId,
               sourceId,
@@ -974,7 +972,6 @@ final class MapboxMapController
 
           Expression filterExpression = parseFilter(filter);
 
-          removeLayer(layerId);
           addFillLayer(
               layerId,
               sourceId,
@@ -1006,7 +1003,6 @@ final class MapboxMapController
 
           Expression filterExpression = parseFilter(filter);
 
-          removeLayer(layerId);
           addFillExtrusionLayer(
               layerId,
               sourceId,
@@ -1037,7 +1033,6 @@ final class MapboxMapController
 
           Expression filterExpression = parseFilter(filter);
 
-          removeLayer(layerId);
           addCircleLayer(
               layerId,
               sourceId,
@@ -1062,8 +1057,6 @@ final class MapboxMapController
           final Double maxzoom = call.argument("maxzoom");
           final PropertyValue[] properties =
               LayerPropertyConverter.interpretRasterLayerProperties(call.argument("properties"));
-
-          removeLayer(layerId);
           addRasterLayer(
               layerId,
               sourceId,
@@ -1288,7 +1281,8 @@ final class MapboxMapController
                 null);
           }
           String layerId = call.argument("layerId");
-          removeLayer(layerId);
+          style.removeLayer(layerId);
+          interactiveFeatureLayerIds.remove(layerId);
 
           result.success(null);
           break;
@@ -1962,13 +1956,6 @@ final class MapboxMapController
       return false;
     }
     return true;
-  }
-
-  void removeLayer(String layerId) {
-    if (style != null && layerId != null) {
-      style.removeLayer(layerId);
-      interactiveFeatureLayerIds.remove(layerId);
-    }
   }
 
   void onMoveEnd(MoveGestureDetector detector) {

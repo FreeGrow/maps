@@ -9,11 +9,7 @@ abstract class AnnotationManager<T extends Annotation> {
   final void Function(T)? onTap;
 
   /// base id of the manager. User [layerdIds] to get the actual ids.
-  String get id => "${managerType}_$randomPostFix";
-
-  final String managerType;
-
-  final String randomPostFix;
+  final String id;
 
   List<String> get layerIds =>
       [for (int i = 0; i < allLayerProperties.length; i++) _makeLayerId(i)];
@@ -33,13 +29,9 @@ abstract class AnnotationManager<T extends Annotation> {
 
   Set<T> get annotations => _idToAnnotation.values.toSet();
 
-  AnnotationManager(
-    this.controller, {
-    required this.managerType,
-    this.onTap,
-    this.selectLayer,
-    required this.enableInteraction,
-  }) : randomPostFix = getRandomString() {
+  AnnotationManager(this.controller,
+      {this.onTap, this.selectLayer, required this.enableInteraction})
+      : id = getRandomString() {
     for (var i = 0; i < allLayerProperties.length; i++) {
       final layerId = _makeLayerId(i);
       controller.addGeoJsonSource(layerId, buildFeatureCollection([]),
@@ -58,6 +50,7 @@ abstract class AnnotationManager<T extends Annotation> {
   Future<void> _rebuildLayers() async {
     for (var i = 0; i < allLayerProperties.length; i++) {
       final layerId = _makeLayerId(i);
+      await controller.removeLayer(layerId);
       await controller.addLayer(layerId, layerId, allLayerProperties[i]);
     }
   }
@@ -179,7 +172,6 @@ class LineManager extends AnnotationManager<Line> {
       {void Function(Line)? onTap, bool enableInteraction = true})
       : super(
           controller,
-          managerType: "line",
           onTap: onTap,
           enableInteraction: enableInteraction,
           selectLayer: (Line line) => line.options.linePattern == null ? 0 : 1,
@@ -209,7 +201,6 @@ class FillManager extends AnnotationManager<Fill> {
     bool enableInteraction = true,
   }) : super(
           controller,
-          managerType: "fill",
           onTap: onTap,
           enableInteraction: enableInteraction,
           selectLayer: (Fill fill) => fill.options.fillPattern == null ? 0 : 1,
@@ -237,7 +228,6 @@ class CircleManager extends AnnotationManager<Circle> {
     bool enableInteraction = true,
   }) : super(
           controller,
-          managerType: "circle",
           enableInteraction: enableInteraction,
           onTap: onTap,
         );
@@ -270,7 +260,6 @@ class SymbolManager extends AnnotationManager<Symbol> {
         _textIgnorePlacement = textIgnorePlacement,
         super(
           controller,
-          managerType: "symbol",
           enableInteraction: enableInteraction,
           onTap: onTap,
         );
