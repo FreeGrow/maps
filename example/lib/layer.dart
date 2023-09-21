@@ -22,9 +22,7 @@ class LayerState extends State {
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
   late MapboxMapController controller;
-  Timer? bikeTimer;
-  Timer? filterTimer;
-  int filteredId = 0;
+  Timer? timer;
 
   @override
   Widget build(BuildContext context) {
@@ -138,22 +136,15 @@ class LayerState extends State {
       ),
       minzoom: 11,
     );
-
-    bikeTimer = Timer.periodic(Duration(milliseconds: 10), (t) {
-      controller.setGeoJsonSource("moving", _movingFeature(t.tick / 2000));
-    });
-
-    controller.setFilter('fills', ['==', 'id', filteredId]);
-    filterTimer = Timer.periodic(Duration(seconds: 3), (t) {
-      filteredId = filteredId == 0 ? 1 : 0;
-      controller.setFilter('fills', ['==', 'id', filteredId]);
-    });
+    timer = Timer.periodic(
+        Duration(milliseconds: 10),
+        (t) => controller.setGeoJsonSource(
+            "moving", _movingFeature(t.tick / 2000)));
   }
 
   @override
   void dispose() {
-    bikeTimer?.cancel();
-    filterTimer?.cancel();
+    timer?.cancel();
     super.dispose();
   }
 }
@@ -195,7 +186,7 @@ final _fills = {
     {
       "type": "Feature",
       "id": 0, // web currently only supports number ids
-      "properties": <String, dynamic>{'id': 0},
+      "properties": <String, dynamic>{},
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -220,7 +211,7 @@ final _fills = {
     {
       "type": "Feature",
       "id": 1,
-      "properties": <String, dynamic>{'id': 1},
+      "properties": <String, dynamic>{},
       "geometry": {
         "type": "Polygon",
         "coordinates": [

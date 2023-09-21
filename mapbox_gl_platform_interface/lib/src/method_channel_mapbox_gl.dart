@@ -473,16 +473,6 @@ class MethodChannelMapboxGl extends MapboxGlPlatform {
   }
 
   @override
-  Future<void> setFilter(String layerId, dynamic filter) async {
-    try {
-      return await _channel.invokeMethod('style#setFilter',
-          <String, Object>{'layerId': layerId, 'filter': jsonEncode(filter)});
-    } on PlatformException catch (e) {
-      return new Future.error(e);
-    }
-  }
-
-  @override
   Future<LatLng> toLatLng(Point screenLocation) async {
     try {
       var latLngMap =
