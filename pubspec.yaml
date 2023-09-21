@@ -19,10 +19,16 @@ dependencies:
   collection: ^1.15.0
 
 dependency_overrides:
-  mapbox_gl_platform_interface:
-    path: ./mapbox_gl_platform_interface
-  mapbox_gl_web:
-    path: ./mapbox_gl_web
+#  mapbox_gl_platform_interface:
+#    git:
+#      url: https://github.com/FreeGrow/maps.git
+#      path: mapbox_gl_platform_interface
+#      ref: freegrow-v1
+#  mapbox_gl_web:
+#    git:
+#      url: https://github.com/FreeGrow/maps.git
+#      path: mapbox_gl_web
+#      ref: freegrow-v1
 
 flutter:
   plugin:
