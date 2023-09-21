@@ -2,7 +2,7 @@ part of mapbox_gl_platform_interface;
 
 class MethodChannelMapboxGl extends MapboxGlPlatform {
   late MethodChannel _channel;
-  static bool useHybridComposition = false;
+  static bool useHybridComposition = true;
 
   Future<dynamic> _handleMethodCall(MethodCall call) async {
     switch (call.method) {
