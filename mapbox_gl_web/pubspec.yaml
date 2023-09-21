@@ -18,8 +18,9 @@ dependencies:
   meta: ^1.1.7
   mapbox_gl_platform_interface:
     git:
-      url: https://github.com/tobrun/flutter-mapbox-gl.git
+      url: https://github.com/FreeGrow/maps
       path: mapbox_gl_platform_interface
+      ref: freegrow-v1.0.3
   mapbox_gl_dart: ^0.2.1
   image: ^3.0.0
 
