@@ -211,10 +211,9 @@ class MethodChannelMapboxGl extends MapboxGlPlatform {
   }
 
   @override
-  Future<bool?> animateCamera(cameraUpdate, {Duration? duration}) async {
+  Future<bool?> animateCamera(cameraUpdate) async {
     return await _channel.invokeMethod('camera#animate', <String, dynamic>{
       'cameraUpdate': cameraUpdate.toJson(),
-      'duration': duration?.inMilliseconds,
     });
   }
 
