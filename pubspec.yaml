@@ -8,12 +8,14 @@ dependencies:
     sdk: flutter
   mapbox_gl_platform_interface:
     git:
-      url: https://github.com/tobrun/flutter-mapbox-gl.git
+      url: https://github.com/FreeGrow/maps.git
       path: mapbox_gl_platform_interface
+      ref: freegrow-v1.0.2
   mapbox_gl_web:
     git:
-      url: https://github.com/tobrun/flutter-mapbox-gl.git
+      url: https://github.com/FreeGrow/maps.git
       path: mapbox_gl_web
+      ref: freegrow-v1.0.2
   collection: ^1.15.0
 
 dependency_overrides:
