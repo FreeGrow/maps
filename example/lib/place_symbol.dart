@@ -275,8 +275,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
     setState(() {
       _iconAllowOverlap = !_iconAllowOverlap;
     });
-    await controller!.setSymbolIconAllowOverlap(_iconAllowOverlap);
-    await controller!.setSymbolTextAllowOverlap(_iconAllowOverlap);
+    controller!.setSymbolIconAllowOverlap(_iconAllowOverlap);
+    controller!.setSymbolTextAllowOverlap(_iconAllowOverlap);
   }
 
   @override
@@ -287,7 +287,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
       children: <Widget>[
         Center(
           child: SizedBox(
-            height: 300.0,
+            width: 300.0,
+            height: 200.0,
             child: MapboxMap(
               accessToken: MapsDemo.ACCESS_TOKEN,
               onMapCreated: _onMapCreated,

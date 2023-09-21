@@ -53,7 +53,6 @@ flutter:
 
   assets:
     - assets/fill/cat_silhouette_pattern.png
-    - assets/fill-extrusion/indoor_3d_map.json
     - assets/symbols/custom-icon.png
     - assets/symbols/2.0x/custom-icon.png
     - assets/symbols/3.0x/custom-icon.png

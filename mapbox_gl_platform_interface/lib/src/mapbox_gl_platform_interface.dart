@@ -81,9 +81,6 @@ abstract class MapboxGlPlatform {
   Future<void> addImageSource(
       String imageSourceId, Uint8List bytes, LatLngQuad coordinates);
 
-  Future<void> updateImageSource(
-      String imageSourceId, Uint8List? bytes, LatLngQuad? coordinates);
-
   Future<void> addLayer(String imageLayerId, String imageSourceId,
       double? minzoom, double? maxzoom);
 
@@ -148,15 +145,6 @@ abstract class MapboxGlPlatform {
       dynamic filter,
       required bool enableInteraction});
 
-  Future<void> addFillExtrusionLayer(
-      String sourceId, String layerId, Map<String, dynamic> properties,
-      {String? belowLayerId,
-      String? sourceLayer,
-      double? minzoom,
-      double? maxzoom,
-      dynamic filter,
-      required bool enableInteraction});
-
   Future<void> addRasterLayer(
       String sourceId, String layerId, Map<String, dynamic> properties,
       {String? belowLayerId,
@@ -165,13 +153,6 @@ abstract class MapboxGlPlatform {
       double? maxzoom});
 
   Future<void> addHillshadeLayer(
-      String sourceId, String layerId, Map<String, dynamic> properties,
-      {String? belowLayerId,
-      String? sourceLayer,
-      double? minzoom,
-      double? maxzoom});
-
-  Future<void> addHeatmapLayer(
       String sourceId, String layerId, Map<String, dynamic> properties,
       {String? belowLayerId,
       String? sourceLayer,
