@@ -703,14 +703,12 @@ class MapboxWebGlPlatform extends MapboxGlPlatform
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
-      dynamic filter,
       required bool enableInteraction}) async {
     return _addLayer(sourceId, layerId, properties, "circle",
         belowLayerId: belowLayerId,
         sourceLayer: sourceLayer,
         minzoom: minzoom,
         maxzoom: maxzoom,
-        filter: filter,
         enableInteraction: enableInteraction);
   }
 
@@ -721,14 +719,12 @@ class MapboxWebGlPlatform extends MapboxGlPlatform
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
-      dynamic filter,
       required bool enableInteraction}) async {
     return _addLayer(sourceId, layerId, properties, "fill",
         belowLayerId: belowLayerId,
         sourceLayer: sourceLayer,
         minzoom: minzoom,
         maxzoom: maxzoom,
-        filter: filter,
         enableInteraction: enableInteraction);
   }
 
@@ -739,14 +735,12 @@ class MapboxWebGlPlatform extends MapboxGlPlatform
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
-      dynamic filter,
       required bool enableInteraction}) async {
     return _addLayer(sourceId, layerId, properties, "line",
         belowLayerId: belowLayerId,
         sourceLayer: sourceLayer,
         minzoom: minzoom,
         maxzoom: maxzoom,
-        filter: filter,
         enableInteraction: enableInteraction);
   }
 
@@ -757,14 +751,12 @@ class MapboxWebGlPlatform extends MapboxGlPlatform
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
-      dynamic filter,
       required bool enableInteraction}) async {
     return _addLayer(sourceId, layerId, properties, "symbol",
         belowLayerId: belowLayerId,
         sourceLayer: sourceLayer,
         minzoom: minzoom,
         maxzoom: maxzoom,
-        filter: filter,
         enableInteraction: enableInteraction);
   }
 
@@ -804,7 +796,6 @@ class MapboxWebGlPlatform extends MapboxGlPlatform
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
-      dynamic filter,
       required bool enableInteraction}) async {
     final layout = Map.fromEntries(
         properties.entries.where((entry) => isLayoutProperty(entry.key)));
@@ -820,7 +811,6 @@ class MapboxWebGlPlatform extends MapboxGlPlatform
       if (sourceLayer != null) 'source-layer': sourceLayer,
       if (minzoom != null) 'minzoom': minzoom,
       if (maxzoom != null) 'maxzoom': maxzoom,
-      if (filter != null) 'filter': filter,
     }, belowLayerId);
 
     if (enableInteraction) {
