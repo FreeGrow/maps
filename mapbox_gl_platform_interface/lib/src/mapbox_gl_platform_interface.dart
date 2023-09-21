@@ -94,8 +94,6 @@ abstract class MapboxGlPlatform {
 
   Future<void> setFilter(String layerId, dynamic filter);
 
-  Future<void> setVisibility(String layerId, bool isVisible);
-
   Future<Point> toScreenLocation(LatLng latLng);
 
   Future<List<Point>> toScreenLocationBatch(Iterable<LatLng> latLngs);
